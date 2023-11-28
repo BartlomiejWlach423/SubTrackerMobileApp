@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         priceList.add(34.0f);
     }
 
-    public void onClickAdd(View view) {
+    public void onClickAdd() {
         EditText editTextName = (EditText) findViewById(R.id.editTextName);//pobranie wartości editText z nazwą abonamentu
         EditText editTextPrice = (EditText) findViewById(R.id.editTextPrice);//pobranie wartości editText z ceną abonamentu
         subList.add(editTextName.getText().toString());//dodanie pobranych danych do listy z nazwami

@@ -13,19 +13,19 @@
         android:theme="@style/Theme.SubTracker"
         tools:targetApi="30">
         <activity
-            android:name=".BaseActivity"
-            android:exported="false"
-            android:label="@string/title_activity_base"
-            android:theme="@style/Theme.SubTracker" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".SubView"
+            android:exported="true"
+            android:label="@string/title_activity_sub_view"
+            android:theme="@style/Theme.SubTracker">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>
