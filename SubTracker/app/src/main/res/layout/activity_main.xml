@@ -68,5 +68,14 @@
 
     </GridLayout>
 
+    <ImageButton
+        android:id="@+id/BackButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:onClick="OnClickBackToMain"
+        android:background="@color/white"
+        android:src="@drawable/back_button_img"
+        />
+
 
 </RelativeLayout>

@@ -18,12 +18,12 @@ public class SubView extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OnclickAdd();
+                OpenActivity();
             }
         });
     }
 
-    public void OnclickAdd(){
+    public void OpenActivity(){
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }

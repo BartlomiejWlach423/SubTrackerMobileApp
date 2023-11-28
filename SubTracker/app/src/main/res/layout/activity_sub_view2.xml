@@ -15,6 +15,6 @@
         android:layout_marginBottom="16dp"
         app:srcCompat="@android:drawable/ic_dialog_email"
         android:contentDescription="Add Button"
-        android:onClick="onClickAdd"/>
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

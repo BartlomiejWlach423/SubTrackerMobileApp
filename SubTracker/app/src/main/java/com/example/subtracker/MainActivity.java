@@ -2,6 +2,7 @@ package com.example.subtracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         priceList.add(34.0f);
     }
 
-    public void onClickAdd() {
+    public void onClickAdd(View view) {
         EditText editTextName = (EditText) findViewById(R.id.editTextName);//pobranie wartości editText z nazwą abonamentu
         EditText editTextPrice = (EditText) findViewById(R.id.editTextPrice);//pobranie wartości editText z ceną abonamentu
         subList.add(editTextName.getText().toString());//dodanie pobranych danych do listy z nazwami
@@ -48,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
         txtViewPrice.setText(prompt2);//wyświetlenie listy z cenami
         editTextName.setText("");//wyczyszczenie editTextName
         editTextPrice.setText("");//wyczyszczenie editTextPrice
+    }
+
+    public void OnClickBackToMain(View view) {
+        Intent BackToMain = new Intent(this,SubView.class);
+        startActivity(BackToMain);
     }
 }
 
