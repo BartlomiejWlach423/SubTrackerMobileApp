@@ -44,4 +44,21 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="title_activity_sub_view">SubView</string>
+    <string-array name="services">
+        <item>None</item>
+        <item>Allegro Smart</item>
+        <item>Amazon Prime</item>
+        <item>Apple Music</item>
+        <item>Apple One</item>
+        <item>Apple TV</item>
+        <item>Disney+</item>
+        <item>Hbo Max</item>
+        <item>Icloud</item>
+        <item>Netflix</item>
+        <item>Prime Video</item>
+        <item>Skyshowtime</item>
+        <item>Twitch Prime</item>
+        <item>Xbox Gamepass</item>
+        <item>Youtube Premium</item>
+    </string-array>
 </resources>
