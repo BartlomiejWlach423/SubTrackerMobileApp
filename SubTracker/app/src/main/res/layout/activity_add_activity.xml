@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddActivity">
+
+    <EditText
+        android:id="@+id/subNameEditText"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:hint="Subscryption Name"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/subCostEditText"
+        android:layout_marginBottom="10dp"
+        />
+
+    <EditText
+        android:id="@+id/subCostEditText"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:hint="Subscryption Cost"
+        android:layout_above="@+id/paymentDayEditText"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <EditText
+        android:id="@+id/paymentDayEditText"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:hint="Payment Day"
+        android:inputType="numberDecimal"
+        android:textAlignment="center"
+        android:layout_above="@+id/Button"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <Button
+        android:id="@+id/Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Add"
+        />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Button"/>
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/purple"
+        android:src="@drawable/baseline_arrow_back_24"
+        android:contentDescription="back button"/>
+
+
+</RelativeLayout>
