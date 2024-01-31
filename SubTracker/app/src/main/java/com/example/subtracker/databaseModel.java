@@ -18,12 +18,7 @@ public class databaseModel {
 
     @Override
     public String toString() {
-        return "databaseModel{" +
-                "subscryptionName='" + subscryptionName + '\'' +
-                ", cost=" + cost +
-                ", paymentDay=" + paymentDay +
-                ", id=" + id +
-                '}';
+        return id + " " + subscryptionName + " " + cost + " " + paymentDay;
     }
 
     public String getSubscryptionName() {

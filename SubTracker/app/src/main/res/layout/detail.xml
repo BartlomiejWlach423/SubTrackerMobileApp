@@ -55,10 +55,22 @@
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete"
         android:layout_below="@+id/detailPaymentDayEditText"
-        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="110dp"
         android:onClick="deleteButtonOnClick"
-        />
+
+        android:text="Delete" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detailPaymentDayEditText"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/deleteButton"
+        android:onClick="saveButtonOnClick"
+        android:text="Save" />
 
 </RelativeLayout>

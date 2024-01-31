@@ -12,10 +12,11 @@ import androidx.annotation.Nullable;
 
 public class DetailActivity extends Activity {
     ImageButton buttonBack;
-    Button buttonDelete;
+    Button buttonSave;
     EditText nameEditText, costEditText, paymentDayEditText;
     DataBaseHelper dbHelper;
     int reciveID = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,10 +25,10 @@ public class DetailActivity extends Activity {
         nameEditText = findViewById(R.id.detailNameEditText);
         costEditText = findViewById(R.id.detailCostEditText);
         paymentDayEditText = findViewById(R.id.detailPaymentDayEditText);
-        buttonDelete = findViewById(R.id.deleteButton);
+        buttonSave = findViewById(R.id.saveButton);
 
         Intent intent = getIntent();
-        if (intent != null){
+        if (intent != null) {
             reciveID = intent.getIntExtra("ITEM_ID", -1);
             System.out.println("reciveID = " + reciveID);
         }
@@ -36,8 +37,14 @@ public class DetailActivity extends Activity {
         nameEditText.setText(dbHelper.getNameById(reciveID));
         costEditText.setText(String.valueOf(dbHelper.getCostById(reciveID)));
         paymentDayEditText.setText(String.valueOf(dbHelper.getPaymentDayById(reciveID)));
-
-
+/*
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(reciveID + ", " + nameEditText.getText().toString() + ", " + costEditText.getText().toString() + ", " + paymentDayEditText.getText().toString());
+                dbHelper.updateData(reciveID, nameEditText.getText().toString(), Float.parseFloat(costEditText.getText().toString()), Integer.parseInt(paymentDayEditText.getText().toString()));
+            }
+        });*/
     }
 
     public void detailBackButtonOnClick(View view) {
@@ -49,4 +56,12 @@ public class DetailActivity extends Activity {
         dbHelper.deleteOne(reciveID);
         detailBackButtonOnClick(view);
     }
+
+
+    public void saveButtonOnClick(View view) {
+        System.out.println(reciveID + ", " + nameEditText.getText().toString() + ", " + costEditText.getText().toString() + ", " + paymentDayEditText.getText().toString());
+        dbHelper.updateData(reciveID, nameEditText.getText().toString(), Float.parseFloat(costEditText.getText().toString()), Integer.parseInt(paymentDayEditText.getText().toString()));
+        detailBackButtonOnClick(view);
+    }
+
 }

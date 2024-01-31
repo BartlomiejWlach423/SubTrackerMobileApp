@@ -155,13 +155,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             day = cursor.getInt(0);
         }
         else {
-            //error
             day = 0;
         }
 
         cursor.close();
         db.close();
         return day;
+    }
+
+    public void updateData(int id, String name, float cost, int day) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE SUBSCRYPTION_TABLE SET COLUMN_SUBSCRYPTION_NAME = '" + name + "', COLUMN_SUBSCRYPTION_COST = " + cost + ", COLUMN_PAYMENT_DAY = " + day + " WHERE COLUMN_ID = " + id);
+        db.close();
     }
 
 }

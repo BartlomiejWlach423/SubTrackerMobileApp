@@ -43,22 +43,18 @@ public class AddActivity extends Activity {
         dataBaseHelper = new DataBaseHelper(AddActivity.this);
 
 
-
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 databaseModel subModel;
                 try {
                     subModel = new databaseModel(nameEditText.getText().toString(),Float.parseFloat(costEditText.getText().toString()), Integer.parseInt(paymentEditText.getText().toString()),-1);
-                    Toast.makeText(AddActivity.this, subModel.toString(), Toast.LENGTH_SHORT).show();
                 }catch (Exception e) {
-                    Toast.makeText(AddActivity.this, "Error creating customer", Toast.LENGTH_SHORT).show();
                     subModel = new databaseModel("error",0.0f,0, -1);
                 }
 
                 boolean success = dataBaseHelper.addOne(subModel);
-                Toast.makeText(AddActivity.this, "success= "+ success, Toast.LENGTH_SHORT).show();
-
+                startActivity(intent);
             }
         });
 
