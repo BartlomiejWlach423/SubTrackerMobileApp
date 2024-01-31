@@ -53,6 +53,20 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean deleteOne(int id){
+        SQLiteDatabase database = this.getWritableDatabase();
+        String query = "DELETE FROM " + SUBSCRYPTION_TABLE + " WHERE " + COLUMN_ID + " = " + id;
+
+        Cursor cursor = database.rawQuery(query, null);
+
+        if (cursor.moveToFirst()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public List<databaseModel> getEveryone(){
         List<databaseModel> list = new ArrayList<>();
 
@@ -69,8 +83,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 float subscryptionCost = cursor.getFloat(2);
                 int paymentDay = cursor.getInt(3);
 
-                databaseModel newCustomer = new databaseModel(subscryptionName, subscryptionCost,paymentDay,subscryptionID);
-                list.add(newCustomer);
+                databaseModel newSub = new databaseModel(subscryptionName, subscryptionCost,paymentDay,subscryptionID);
+                list.add(newSub);
 
             }while(cursor.moveToNext());
         }
@@ -82,4 +96,72 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
         return list;
     }
+
+
+    public String getNameById(int id){
+        String name = new String();
+
+        String query = "SELECT " + COLUMN_SUBSCRYPTION_NAME + " FROM "+ SUBSCRYPTION_TABLE + " WHERE " + COLUMN_ID + " = " + id;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()){
+            name = cursor.getString(0);
+        }
+        else {
+            //error
+            name = "loading error";
+        }
+
+        cursor.close();
+        db.close();
+        return name;
+    }
+
+    public float getCostById(int id){
+        float cost;
+
+        String query = "SELECT " + COLUMN_SUBSCRYPTION_COST + " FROM "+ SUBSCRYPTION_TABLE + " WHERE " + COLUMN_ID + " = " + id;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()){
+            cost = cursor.getFloat(0);
+        }
+        else {
+            //error
+            cost = 0.0f;
+        }
+
+        cursor.close();
+        db.close();
+        return cost;
+    }
+
+    public int getPaymentDayById(int id){
+        int day;
+
+        String query = "SELECT " + COLUMN_PAYMENT_DAY + " FROM "+ SUBSCRYPTION_TABLE + " WHERE " + COLUMN_ID + " = " + id;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()){
+            day = cursor.getInt(0);
+        }
+        else {
+            //error
+            day = 0;
+        }
+
+        cursor.close();
+        db.close();
+        return day;
+    }
+
 }

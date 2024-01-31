@@ -20,7 +20,7 @@ public class AddActivity extends Activity {
     Button buttonAdd;
     ImageButton buttonBack;
     EditText nameEditText, costEditText, paymentEditText;
-    ArrayAdapter<databaseModel> subArrayAdapter;
+
     DataBaseHelper dataBaseHelper;
 
     ListView listView;
@@ -37,14 +37,12 @@ public class AddActivity extends Activity {
         nameEditText = findViewById(R.id.subNameEditText);
         costEditText = findViewById(R.id.subCostEditText);
         paymentEditText = findViewById(R.id.paymentDayEditText);
-        listView = findViewById(R.id.listView);
 
         intent = new Intent(this, MainActivity.class);
 
         dataBaseHelper = new DataBaseHelper(AddActivity.this);
 
-        subArrayAdapter = new ArrayAdapter<databaseModel>(AddActivity.this, android.R.layout.simple_list_item_1, dataBaseHelper.getEveryone());
-        listView.setAdapter(subArrayAdapter);
+
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +59,6 @@ public class AddActivity extends Activity {
                 boolean success = dataBaseHelper.addOne(subModel);
                 Toast.makeText(AddActivity.this, "success= "+ success, Toast.LENGTH_SHORT).show();
 
-                subArrayAdapter = new ArrayAdapter<databaseModel>(AddActivity.this, android.R.layout.simple_list_item_1, dataBaseHelper.getEveryone());
-                listView.setAdapter(subArrayAdapter);
             }
         });
 
