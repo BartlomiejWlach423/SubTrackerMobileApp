@@ -34,10 +34,11 @@ public class DetailActivity extends Activity {
         }
 
         dbHelper = new DataBaseHelper(DetailActivity.this);
+
         nameEditText.setText(dbHelper.getNameById(reciveID));
         costEditText.setText(String.valueOf(dbHelper.getCostById(reciveID)));
         paymentDayEditText.setText(String.valueOf(dbHelper.getPaymentDayById(reciveID)));
-/*
+        /*
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +55,7 @@ public class DetailActivity extends Activity {
 
     public void deleteButtonOnClick(View view) {
         dbHelper.deleteOne(reciveID);
+
         detailBackButtonOnClick(view);
     }
 
@@ -61,6 +63,7 @@ public class DetailActivity extends Activity {
     public void saveButtonOnClick(View view) {
         System.out.println(reciveID + ", " + nameEditText.getText().toString() + ", " + costEditText.getText().toString() + ", " + paymentDayEditText.getText().toString());
         dbHelper.updateData(reciveID, nameEditText.getText().toString(), Float.parseFloat(costEditText.getText().toString()), Integer.parseInt(paymentDayEditText.getText().toString()));
+
         detailBackButtonOnClick(view);
     }
 

@@ -120,6 +120,32 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return name;
     }
 
+    public List<String>  getEveryName(){
+        List<String> nameList = new ArrayList<>();
+
+        String query = "SELECT " + COLUMN_SUBSCRYPTION_NAME + " FROM "+ SUBSCRYPTION_TABLE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()){
+            do{
+                String name = cursor.getString(0);
+
+                nameList.add(name);
+
+            }while(cursor.moveToNext());
+        }
+        else {
+            //error
+        }
+
+        cursor.close();
+        db.close();
+        return nameList;
+    }
+
     public float getCostById(int id){
         float cost;
 
@@ -142,6 +168,33 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return cost;
     }
 
+    public List<Float> getEveryCost(){
+        List<Float> costList = new ArrayList<>();
+
+        String query = "SELECT " + COLUMN_SUBSCRYPTION_COST + " FROM "+ SUBSCRYPTION_TABLE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()){
+            do{
+                float cost = cursor.getFloat(0);
+
+                Float newFloat = new Float(cost);
+                costList.add(newFloat);
+
+            }while(cursor.moveToNext());
+        }
+        else {
+            //error
+        }
+
+        cursor.close();
+        db.close();
+        return costList;
+    }
+
     public int getPaymentDayById(int id){
         int day;
 
@@ -161,6 +214,33 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return day;
+    }
+
+    public List<Integer> getEveryPaymentDay(){
+        List<Integer> paymentList = new ArrayList<>();
+
+        String query = "SELECT " + COLUMN_PAYMENT_DAY + " FROM "+ SUBSCRYPTION_TABLE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()){
+            do{
+                int day = cursor.getInt(0);
+
+                Integer newInt = new Integer(day);
+                paymentList.add(newInt);
+
+            }while(cursor.moveToNext());
+        }
+        else {
+            //error
+        }
+
+        cursor.close();
+        db.close();
+        return paymentList;
     }
 
     public void updateData(int id, String name, float cost, int day) {

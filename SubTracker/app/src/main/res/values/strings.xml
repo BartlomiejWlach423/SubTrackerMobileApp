@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SubTracker</string>
+    <string name="notification_channel_id">my_channel_id</string>
+    <string name="notification_channel_name">my_channel_name</string>
+    <string name="notification_Payment_title">payment day</string>
+    <string name="today">Today is the payment day for</string>
+    <string name="tomorrow">Tomorrow is the payment day for</string>
+    <string name="after_tomorrow">Payment in 2 days for</string>
+    <string name="cost">in the cost of</string>
 </resources>
