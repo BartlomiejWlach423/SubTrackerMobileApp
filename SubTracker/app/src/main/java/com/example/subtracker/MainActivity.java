@@ -5,13 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.renderscript.ScriptGroup;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.subtracker.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -25,23 +28,33 @@ public class MainActivity extends AppCompatActivity {
     Handler handler;
 
     Runnable delayedTodayNotification, delayedFutureNotification;
+    ArrayList<ListData> listArrayData = new ArrayList<>();
+    ListData listData;
+    ListAdapter listAdapter;
+    ActivityMainBinding binding;
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        listView = findViewById(R.id.subListView);
-        fb = findViewById(R.id.fab);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         dataBaseHelper = new DataBaseHelper(MainActivity.this);
 
-        subArrayAdapter = new ArrayAdapter<databaseModel>(MainActivity.this, android.R.layout.simple_list_item_1, dataBaseHelper.getEveryone());
+        setCustomListView(dataBaseHelper);
+        fb = findViewById(R.id.fab);
+
+        /*
+        listView = findViewById(R.id.subListView);
+        subArrayAdapter = new ArrayAdapter<databaseModel>(MainActivity.this, R.layout.custom_list_view, dataBaseHelper.getEveryone());
         listView.setAdapter(subArrayAdapter);
+        */
 
         Intent addIntent = new Intent(this, AddActivity.class);
-        Intent detailIntent = new Intent(this, DetailActivity.class);
+        //Intent detailIntent = new Intent(this, DetailActivity.class);
 
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(addIntent);
             }
         });
-
+        /*
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -58,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(detailIntent);
             }
         });
-
+        */
         handler = new Handler();
 
         delayedTodayNotification = new Runnable() {
@@ -134,5 +147,31 @@ public class MainActivity extends AppCompatActivity {
             }
             System.out.println("wysłano powiadomienie");
         }
+    }
+
+    void setCustomListView(DataBaseHelper dataBaseHelper){
+        List<String> nameList = dataBaseHelper.getEveryName();
+        List<Float> costList = dataBaseHelper.getEveryCost();
+        List<Integer> paymentList = dataBaseHelper.getEveryPaymentDay();
+        List<Integer> idList = dataBaseHelper.getEveryId();
+
+        for (short i = 0; i < idList.size(); i++){
+            listData = new ListData(nameList.get(i),costList.get(i),paymentList.get(i),idList.get(i));
+            listArrayData.add(listData);
+        }
+        listAdapter = new ListAdapter(MainActivity.this, listArrayData);
+        binding.subListView.setAdapter(listAdapter);
+        binding.subListView.setClickable(true);
+
+        Intent detailIntent = new Intent(this, DetailActivity.class);
+        binding.subListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ListData clickedItem = (ListData) parent.getItemAtPosition(position);
+                detailIntent.putExtra("ITEM_ID", clickedItem.getId());
+                startActivity(detailIntent);
+            }
+        });
+
     }
 }

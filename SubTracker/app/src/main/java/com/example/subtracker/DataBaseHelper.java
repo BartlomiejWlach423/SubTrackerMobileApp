@@ -120,6 +120,32 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return name;
     }
 
+    public List<Integer>  getEveryId(){
+        List<Integer> idList = new ArrayList<>();
+
+        String query = "SELECT " + COLUMN_ID + " FROM "+ SUBSCRYPTION_TABLE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()){
+            do{
+                int id = cursor.getInt(0);
+
+                idList.add(id);
+
+            }while(cursor.moveToNext());
+        }
+        else {
+            //error
+        }
+
+        cursor.close();
+        db.close();
+        return idList;
+    }
+
     public List<String>  getEveryName(){
         List<String> nameList = new ArrayList<>();
 

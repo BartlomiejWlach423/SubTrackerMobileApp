@@ -7,4 +7,10 @@
     <string name="tomorrow">Tomorrow is the payment day for</string>
     <string name="after_tomorrow">Payment in 2 days for</string>
     <string name="cost">in the cost of</string>
+    <string name="ac_cost_information">cost information</string>
+    <string name="ac_name_information">name information</string>
+    <string name="ac_payment_information">payment information</string>
+    <string name="payment_custom_listview">Payment</string>
+    <string name="cost_custom_listview">Cost</string>
+    <string name="name_custom_listview">Name</string>
 </resources>
