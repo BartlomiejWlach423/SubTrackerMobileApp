@@ -2,14 +2,12 @@ package com.example.subtracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.renderscript.ScriptGroup;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.example.subtracker.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,20 +18,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    FloatingActionButton fb;
-    ArrayAdapter<databaseModel> subArrayAdapter;
-    DataBaseHelper dataBaseHelper;
-    ListView listView;
-    Calendar calendar = Calendar.getInstance();
-    Handler handler;
-
-    Runnable delayedTodayNotification, delayedFutureNotification;
     ArrayList<ListData> listArrayData = new ArrayList<>();
-    ListData listData;
     ListAdapter listAdapter;
     ActivityMainBinding binding;
-
-
 
 
     @Override
@@ -42,19 +29,12 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        dataBaseHelper = new DataBaseHelper(MainActivity.this);
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
 
         setCustomListView(dataBaseHelper);
-        fb = findViewById(R.id.fab);
-
-        /*
-        listView = findViewById(R.id.subListView);
-        subArrayAdapter = new ArrayAdapter<databaseModel>(MainActivity.this, R.layout.custom_list_view, dataBaseHelper.getEveryone());
-        listView.setAdapter(subArrayAdapter);
-        */
+        FloatingActionButton fb = findViewById(R.id.fab);
 
         Intent addIntent = new Intent(this, AddActivity.class);
-        //Intent detailIntent = new Intent(this, DetailActivity.class);
 
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,94 +42,71 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(addIntent);
             }
         });
-        /*
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                databaseModel clickedItem = (databaseModel) parent.getItemAtPosition(position);
-                detailIntent.putExtra("ITEM_ID", clickedItem.getId());
-                startActivity(detailIntent);
-            }
-        });
-        */
-        handler = new Handler();
+
+        Handler handler = new Handler();
+
+        Runnable delayedTodayNotification, delayedTomorrowNotification, delayedFutureNotification;
 
         delayedTodayNotification = new Runnable() {
             @Override
             public void run() {
-                checkToday();
+                checkNotification(0);
+            }
+        };
+
+        delayedTomorrowNotification = new Runnable() {
+            @Override
+            public void run() {
+                checkNotification(1);
             }
         };
 
         delayedFutureNotification = new Runnable() {
             @Override
             public void run() {
-                checkFuture();
+                checkNotification(2);
             }
         };
 
-        handler.postDelayed(delayedTodayNotification, 2000);
-        handler.postDelayed(delayedFutureNotification, 6000);
+        handler.postDelayed(delayedTodayNotification, 4000);
+        handler.postDelayed(delayedTomorrowNotification, 10000);
+        handler.postDelayed(delayedFutureNotification,16000);
     }
 
-    void checkToday(){
+    void checkNotification(int future){
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
         List<String> nameList = dataBaseHelper.getEveryName();
         List<Float> costList = dataBaseHelper.getEveryCost();
         List<Integer> paymentList = dataBaseHelper.getEveryPaymentDay();
 
-        int today = calendar.get(Calendar.DAY_OF_MONTH);
+        Calendar calendar = Calendar.getInstance();
+        int paymentDay = calendar.get(Calendar.DAY_OF_MONTH)+future;
 
-        System.out.println("Payment list size = " + paymentList.size());
-
-        for (short i = 0; i < paymentList.size(); i++) {
-            System.out.println("paymentList("+i+") = " + paymentList.get(i));
-            if (today == paymentList.get(i)){
-                NotificationHelper.paymentDayNotify(this, nameList.get(i), costList.get(i), this.getString(R.string.today));
-                System.out.println("wysłano powiadomienie");
-            }
-        }
-    }
-
-    void checkFuture(){
-        List<String> nameList = dataBaseHelper.getEveryName();
-        List<Float> costList = dataBaseHelper.getEveryCost();
-        List<Integer> paymentList = dataBaseHelper.getEveryPaymentDay();
-
-        int futureDay = calendar.get(Calendar.DAY_OF_MONTH)+2;
-
-        if (futureDay>26) {
-            int month = calendar.get(Calendar.MONTH);
-            if (month == 0 || month == 2 || month == 4 || month == 6 || month == 7 || month == 9 || month == 11) {
-                futureDay = futureDay-31;
-            } else if (month == 3 || month == 5 || month == 8 || month == 10) {
-                futureDay = futureDay-30;
-            } else {
-                int year = calendar.get(Calendar.YEAR);
-                if ((year%4==0 && year%100!=0) || year%400==0){
-                    futureDay = futureDay-29;
-                }
-                else{
-                    futureDay = futureDay-28;
-                }
-            }
+        if (paymentDay>26) {
+            int dayInMonth = listAdapter.howManyDaysIsInThisMonth();
+            paymentDay-=dayInMonth;
         }
 
-        System.out.println("Payment list size = " + paymentList.size());
-        System.out.println("zakres dni do powiadomienia: "+(futureDay-1)+"-"+futureDay);
+        int resource = R.string.today;
+
+        switch (future){
+            case 1:
+                resource=R.string.tomorrow;
+                break;
+            case 2:
+                resource=R.string.after_tomorrow;
+                break;
+            default:break;
+        }
 
         for (short i = 0; i < paymentList.size(); i++) {
-            System.out.println("paymentList("+i+") = " + paymentList.get(i));
-            if (futureDay == paymentList.get(i)){
-                NotificationHelper.paymentDayNotify(this, nameList.get(i), costList.get(i), this.getString(R.string.after_tomorrow));
-            }
-            else if (futureDay-1 == paymentList.get(i)){
-                NotificationHelper.paymentDayNotify(this, nameList.get(i), costList.get(i), this.getString(R.string.tomorrow));
-            }
-            System.out.println("wysłano powiadomienie");
+            if (paymentDay == paymentList.get(i))
+                NotificationHelper.paymentDayNotify(this, nameList.get(i), costList.get(i), this.getString(resource));
         }
     }
 
     void setCustomListView(DataBaseHelper dataBaseHelper){
+        ListData listData;
         List<String> nameList = dataBaseHelper.getEveryName();
         List<Float> costList = dataBaseHelper.getEveryCost();
         List<Integer> paymentList = dataBaseHelper.getEveryPaymentDay();
@@ -172,6 +129,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(detailIntent);
             }
         });
-
     }
+
 }

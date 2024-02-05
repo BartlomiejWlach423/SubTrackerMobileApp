@@ -9,9 +9,9 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 
 public class NotificationHelper {
+
     public static void paymentDayNotify(Context context, String name, float cost, String message) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
@@ -33,3 +33,5 @@ public class NotificationHelper {
     }
 
 }
+
+

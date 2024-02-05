@@ -4,43 +4,30 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import java.util.List;
-
 public class AddActivity extends Activity {
-
-    Button buttonAdd;
-    ImageButton buttonBack;
-    EditText nameEditText, costEditText, paymentEditText;
-
-    DataBaseHelper dataBaseHelper;
-
-    ListView listView;
-    Intent intent;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_activity);
 
-        buttonAdd = findViewById(R.id.Button);
-        buttonBack = findViewById(R.id.backButton);
+        Button buttonAdd = findViewById(R.id.Button);
+        ImageButton buttonBack = findViewById(R.id.backButton);
+
+        EditText nameEditText, costEditText, paymentEditText;
         nameEditText = findViewById(R.id.subNameEditText);
         costEditText = findViewById(R.id.subCostEditText);
         paymentEditText = findViewById(R.id.paymentDayEditText);
 
-        intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
 
-        dataBaseHelper = new DataBaseHelper(AddActivity.this);
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(AddActivity.this);
 
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {

@@ -1,7 +1,6 @@
 package com.example.subtracker;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.util.Calendar;
 import java.util.List;
@@ -28,6 +28,7 @@ public class ListAdapter extends ArrayAdapter<ListData> {
         Calendar calendar = Calendar.getInstance();
         int today = calendar.get(Calendar.DAY_OF_MONTH);
         int inHowManyDaysPayment = listData.payment-today;
+        int daysInMonth = howManyDaysIsInThisMonth();
 
         if (convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.custom_list_view, parent, false);
@@ -39,25 +40,55 @@ public class ListAdapter extends ArrayAdapter<ListData> {
 
         nameCustomListView.setText(listData.name);
         costCustomListView.setText(String.valueOf(listData.cost)+ " " +convertView.getContext().getString(R.string.currency));
+
+        int color = R.color.black;
+        String message = "";
+
         if (inHowManyDaysPayment==0) {
-            paymentCustomListView.setText("Today");
-            paymentCustomListView.setTextColor(Color.RED);
+            message ="Today";
+            color = R.color.red;
         }
         else if (inHowManyDaysPayment == 1) {
-            paymentCustomListView.setText("Tomorrow");
-            int orangeColor = getContext().getResources().getColor(R.color.orange);
-            paymentCustomListView.setTextColor(orangeColor);
+            message = "Tomorrow";
+            color = R.color.orange;
         }
         else if (inHowManyDaysPayment == 2) {
-            paymentCustomListView.setText("payment in " + inHowManyDaysPayment + " days");
-            int orangeColor = getContext().getResources().getColor(R.color.orange);
-            paymentCustomListView.setTextColor(orangeColor);
+            message = "payment in " + inHowManyDaysPayment + " days";
+            color = R.color.orange;
         }
-        else {
-            paymentCustomListView.setText("payment in " + inHowManyDaysPayment + " days");
-            paymentCustomListView.setTextColor(Color.BLACK);
+        else if (inHowManyDaysPayment > 2){
+            message = "payment in " + inHowManyDaysPayment + " days";
+            color = R.color.black;
+        }
+        else if (inHowManyDaysPayment < 0){
+            inHowManyDaysPayment += daysInMonth;
+            message = "payment in " + inHowManyDaysPayment + " days";
+        }
+        if (listData.payment>daysInMonth) {
+            color = R.color.blue;
+            message = "check when!!!";
         }
 
+        paymentCustomListView.setText(message);
+        paymentCustomListView.setTextColor(ContextCompat.getColor(convertView.getContext(),color));
+
         return convertView;
+    }
+
+    int howManyDaysIsInThisMonth(){
+        Calendar calendar = Calendar.getInstance();
+        int month = calendar.get(Calendar.MONTH);
+
+        if (month == 0 || month == 2 || month == 4 || month == 6 || month == 7 || month == 9 || month == 11)
+            return 31;
+        else if (month == 3 || month == 5 || month == 8 || month == 10)
+            return 30;
+        else{
+            int year = calendar.get(Calendar.YEAR);
+            if ((year%4==0 && year%100!=0) || year%400==0)
+                return 29;
+            else
+                return 28;
+        }
     }
 }

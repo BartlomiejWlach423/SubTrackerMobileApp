@@ -19,14 +19,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PAYMENT_DAY = "COLUMN_PAYMENT_DAY";
 
     public DataBaseHelper(@Nullable Context context) {
-
         super(context, "subscryption.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         String TableStatement = "CREATE TABLE " + SUBSCRYPTION_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_SUBSCRYPTION_NAME + " TEXT, " + COLUMN_SUBSCRYPTION_COST + " INT, " + COLUMN_PAYMENT_DAY + " INT)";
-
         db.execSQL(TableStatement);
     }
 
@@ -43,14 +41,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_SUBSCRYPTION_COST, subModel.getCost());
         cv.put(COLUMN_PAYMENT_DAY, subModel.getPaymentDay());
 
-
         long insert = db.insert(SUBSCRYPTION_TABLE, null, cv);
-        if (insert == -1){
+        if (insert == -1)
             return false;
-        }
-        else{
+        else
             return true;
-        }
     }
 
     public boolean deleteOne(int id){
@@ -59,12 +54,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = database.rawQuery(query, null);
 
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst())
             return true;
-        }
-        else {
+        else
             return false;
-        }
     }
 
     public List<databaseModel> getEveryone(){
@@ -88,9 +81,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
             }while(cursor.moveToNext());
         }
-        else {
-            //failure. do not add anything
-        }
+        else
+            //error
 
         cursor.close();
         db.close();
@@ -99,7 +91,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
     public String getNameById(int id){
-        String name = new String();
+        String name = "error";
 
         String query = "SELECT " + COLUMN_SUBSCRYPTION_NAME + " FROM "+ SUBSCRYPTION_TABLE + " WHERE " + COLUMN_ID + " = " + id;
 
@@ -107,13 +99,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(query, null);
 
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst())
             name = cursor.getString(0);
-        }
-        else {
+        else
             //error
-            name = "loading error";
-        }
 
         cursor.close();
         db.close();
@@ -132,14 +121,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()){
             do{
                 int id = cursor.getInt(0);
-
                 idList.add(id);
-
             }while(cursor.moveToNext());
         }
-        else {
+        else
             //error
-        }
 
         cursor.close();
         db.close();
@@ -163,9 +149,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
             }while(cursor.moveToNext());
         }
-        else {
+        else
             //error
-        }
 
         cursor.close();
         db.close();
@@ -173,7 +158,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public float getCostById(int id){
-        float cost;
+        float cost = 0.0f;
 
         String query = "SELECT " + COLUMN_SUBSCRYPTION_COST + " FROM "+ SUBSCRYPTION_TABLE + " WHERE " + COLUMN_ID + " = " + id;
 
@@ -181,13 +166,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(query, null);
 
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst())
             cost = cursor.getFloat(0);
-        }
-        else {
+        else
             //error
-            cost = 0.0f;
-        }
 
         cursor.close();
         db.close();
@@ -212,9 +194,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
             }while(cursor.moveToNext());
         }
-        else {
+        else
             //error
-        }
 
         cursor.close();
         db.close();
@@ -222,7 +203,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public int getPaymentDayById(int id){
-        int day;
+        int day = 0;
 
         String query = "SELECT " + COLUMN_PAYMENT_DAY + " FROM "+ SUBSCRYPTION_TABLE + " WHERE " + COLUMN_ID + " = " + id;
 
@@ -232,9 +213,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()){
             day = cursor.getInt(0);
-        }
-        else {
-            day = 0;
         }
 
         cursor.close();
@@ -257,12 +235,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
                 Integer newInt = new Integer(day);
                 paymentList.add(newInt);
-
             }while(cursor.moveToNext());
         }
-        else {
+        else
             //error
-        }
 
         cursor.close();
         db.close();
