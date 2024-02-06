@@ -33,22 +33,17 @@ public class DetailActivity extends Activity {
         paymentDayEditText.setText(String.valueOf(dbHelper.getPaymentDayById(reciveID)));
     }
 
-    public void detailBackButtonOnClick(View view) {
-        Intent backToMainIntent = new Intent(this, MainActivity.class);
-        startActivity(backToMainIntent);
-    }
-
     public void deleteButtonOnClick(View view) {
         DataBaseHelper dbHelper = new DataBaseHelper(DetailActivity.this);
         dbHelper.deleteOne(reciveID);
-        detailBackButtonOnClick(view);
+        finish();
     }
 
 
     public void saveButtonOnClick(View view) {
         DataBaseHelper dbHelper = new DataBaseHelper(DetailActivity.this);
         dbHelper.updateData(reciveID, nameEditText.getText().toString(), Float.parseFloat(costEditText.getText().toString()), Integer.parseInt(paymentDayEditText.getText().toString()));
-        detailBackButtonOnClick(view);
+        finish();
     }
 
 }

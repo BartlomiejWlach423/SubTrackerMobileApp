@@ -1,6 +1,7 @@
 package com.example.subtracker;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,24 @@ public class ListAdapter extends ArrayAdapter<ListData> {
         TextView paymentCustomListView = convertView.findViewById(Integer.parseInt(String.valueOf(R.id.paymentCustomListView)));
 
         nameCustomListView.setText(listData.name);
+        if (listData.name.length()<20)
+            nameCustomListView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 17);
+        else if (listData.name.length()<30)
+            nameCustomListView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+        else if (listData.name.length()<40)
+            nameCustomListView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 11);
+        else
+            nameCustomListView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 9);
+
         costCustomListView.setText(String.valueOf(listData.cost)+ " " +convertView.getContext().getString(R.string.currency));
+        if (listData.cost<100)
+            costCustomListView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
+        else if (listData.cost<1000)
+            costCustomListView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+        else if (listData.cost<100000)
+            costCustomListView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 11);
+        else
+            costCustomListView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 9);
 
         int color = R.color.black;
         String message = "";

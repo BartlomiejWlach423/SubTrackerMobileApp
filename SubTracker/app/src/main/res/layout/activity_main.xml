@@ -11,19 +11,36 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
-        android:contentDescription="Floating Button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:contentDescription="@string/ac_floating_button_that_open_add_activity"
         android:src="@drawable/baseline_add_24"
-        android:onClick="fabOnClick"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabSum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:layout_toStartOf="@+id/fab"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/ac_floating_button_that_open_summary_activity"
+        android:src="@drawable/baseline_article_24"
         />
+
 
     <ListView
         android:id="@+id/subListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:scrollbars="horizontal"
+        android:smoothScrollbar="true"
+        android:cacheColorHint="@color/white"
         />
+
+
 
 </RelativeLayout>

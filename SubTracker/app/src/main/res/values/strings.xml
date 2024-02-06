@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">SubTracker</string>
-    <string name="notification_channel_id">my_channel_id</string>
-    <string name="notification_channel_name">my_channel_name</string>
+    <string name="notification_channel_name">SubscryptionReminder</string>
     <string name="notification_Payment_title">payment day</string>
     <string name="today">Today is the payment day for</string>
     <string name="tomorrow">Tomorrow is the payment day for</string>
@@ -13,4 +12,9 @@
     <string name="payment_custom_listview">Payment</string>
     <string name="cost_custom_listview">Cost</string>
     <string name="name_custom_listview">Name</string>
+    <string name="detailEditTextHint">loading</string>
+    <string name="summary_month">"Month: "</string>
+    <string name="summary_year">"\nYear: "</string>
+    <string name="ac_floating_button_that_open_summary_activity">Floating Button that open summary activity</string>
+    <string name="ac_floating_button_that_open_add_activity">Floating Button that open add activity</string>
 </resources>

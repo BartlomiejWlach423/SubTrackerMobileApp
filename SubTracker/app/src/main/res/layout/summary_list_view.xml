@@ -2,7 +2,6 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     android:layout_marginVertical="10dp"
@@ -12,43 +11,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:columnCount="3"
+        android:columnCount="2"
         android:rowCount="1"
         android:layout_gravity="center">
 
         <TextView
-            android:id="@+id/nameCustomListView"
-            android:layout_width="180dp"
+            android:id="@+id/summaryNameCustomListView"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="@string/name_custom_listview"
             android:textSize="17sp"
             android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:contentDescription="@string/ac_name_information"
             />
 
         <TextView
-            android:id="@+id/costCustomListView"
-            android:layout_width="50dp"
+            android:id="@+id/summaryCostCustomListView"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/cost_custom_listview"
-            android:textSize="15sp"
-            android:layout_marginTop="12dp"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
             android:contentDescription="@string/ac_cost_information"
-
+            android:textAlignment="textEnd"
             />
 
-        <TextView
-            android:id="@+id/paymentCustomListView"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:text="@string/payment_custom_listview"
-            android:textSize="13sp"
-            android:layout_marginTop="11dp"
-            android:contentDescription="@string/ac_payment_information"
-            android:textAlignment="viewEnd"
-            />
 
     </GridLayout>
 

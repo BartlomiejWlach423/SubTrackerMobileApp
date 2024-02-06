@@ -18,17 +18,13 @@ public class AddActivity extends Activity {
         setContentView(R.layout.activity_add_activity);
 
         Button buttonAdd = findViewById(R.id.Button);
-        ImageButton buttonBack = findViewById(R.id.backButton);
 
         EditText nameEditText, costEditText, paymentEditText;
         nameEditText = findViewById(R.id.subNameEditText);
         costEditText = findViewById(R.id.subCostEditText);
         paymentEditText = findViewById(R.id.paymentDayEditText);
 
-        Intent intent = new Intent(this, MainActivity.class);
-
         DataBaseHelper dataBaseHelper = new DataBaseHelper(AddActivity.this);
-
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,19 +35,9 @@ public class AddActivity extends Activity {
                 }catch (Exception e) {
                     subModel = new databaseModel("error",0.0f,0, -1);
                 }
-
                 boolean success = dataBaseHelper.addOne(subModel);
-                startActivity(intent);
-            }
-        });
-
-        buttonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(intent);
+                finish();
             }
         });
     }
-
-
 }
